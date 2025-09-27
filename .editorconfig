@@ -1,0 +1,88 @@
+# EditorConfig - Configurações consistentes de editor para diferentes IDEs
+# https://editorconfig.org
+
+# Configuração raiz
+root = true
+
+# Configurações para todos os arquivos
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# Arquivos HTML
+[*.html]
+indent_size = 2
+max_line_length = 120
+
+# Arquivos CSS/SCSS/LESS
+[*.{css,scss,less,styl}]
+indent_size = 2
+max_line_length = 120
+
+# Arquivos JavaScript/TypeScript
+[*.{js,jsx,ts,tsx,mjs,cjs}]
+indent_size = 2
+max_line_length = 100
+
+# Arquivos JSON
+[*.{json,jsonc}]
+indent_size = 2
+max_line_length = 120
+
+# Arquivos YAML
+[*.{yml,yaml}]
+indent_size = 2
+max_line_length = 80
+
+# Arquivos Markdown
+[*.md]
+indent_size = 2
+max_line_length = 80
+trim_trailing_whitespace = false
+
+# Arquivos de configuração
+[*.{toml,ini}]
+indent_size = 4
+
+# Arquivos XML
+[*.{xml,svg}]
+indent_size = 2
+
+# Arquivos Python (caso tenha scripts)
+[*.py]
+indent_size = 4
+max_line_length = 88
+
+# Arquivos Shell
+[*.{sh,bash,zsh}]
+indent_size = 2
+
+# Arquivos Docker
+[{Dockerfile,Dockerfile.*}]
+indent_size = 4
+
+# Arquivos de configuração específicos
+[{package.json,.travis.yml,.github/**/*.yml}]
+indent_size = 2
+
+# Arquivos que não devem ter trailing whitespace removido
+[*.{md,txt,rtf}]
+trim_trailing_whitespace = false
+
+# Arquivos binários/assets (sem modificação)
+[*.{jpg,jpeg,png,gif,ico,svg,webp,mp4,mp3,pdf,zip,tar,gz}]
+insert_final_newline = false
+trim_trailing_whitespace = false
+
+# Arquivos de dados
+[*.{csv,tsv,dat}]
+trim_trailing_whitespace = false
+
+# Makefile (requer tabs)
+[{Makefile,makefile,*.mk}]
+indent_style = tab
+indent_size = 4

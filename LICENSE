@@ -1,0 +1,112 @@
+MIT License
+
+Copyright (c) 2025 Protocolo Renda Extra
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## 🇧🇷 Licença em Português
+
+### Resumo Simples
+- ✅ **Uso comercial** - Pode usar para fins lucrativos
+- ✅ **Modificação** - Pode alterar o código
+- ✅ **Distribuição** - Pode redistribuir
+- ✅ **Uso privado** - Pode usar privativamente
+- ❌ **Responsabilidade** - Sem garantias de funcionamento
+- ❌ **Garantia** - Sem suporte garantido
+
+### Explicação Detalhada
+
+Esta licença MIT permite que você:
+
+**✨ PODE FAZER:**
+- Usar o sistema em projetos pessoais ou comerciais
+- Modificar o código conforme suas necessidades
+- Criar versões derivadas do sistema
+- Vender produtos baseados no código
+- Incorporar em outros projetos (open source ou proprietários)
+
+**⚠️ CONDIÇÕES:**
+- Deve manter o aviso de copyright
+- Deve incluir o texto da licença MIT
+- Dar crédito aos autores originais
+
+**🚫 NÃO GARANTIMOS:**
+- Que o sistema funcionará perfeitamente
+- Suporte técnico gratuito
+- Que estará livre de bugs
+- Responsabilidade por danos ou perdas
+
+### Casos de Uso Comuns
+
+**👥 Para Desenvolvedores:**
+```javascript
+// ✅ Pode usar em projetos pessoais
+import { RendaExtraSystem } from './renda-extra'
+
+// ✅ Pode modificar e redistribuir
+const meuSistema = new RendaExtraSystem()
+meuSistema.customizar()
+```
+
+**🏢 Para Empresas:**
+- Pode integrar em produtos comerciais
+- Pode criar versões white-label
+- Pode vender como serviço (SaaS)
+- Deve manter os créditos
+
+**🎓 Para Educação:**
+- Pode usar em cursos e workshops
+- Pode modificar para fins didáticos
+- Pode distribuir para alunos
+- Ideal para aprendizado
+
+### Contribuições
+
+Ao contribuir com este projeto, você concorda que suas contribuições serão licenciadas sob a mesma Licença MIT.
+
+### Avisos Legais
+
+**🔒 Dados e Privacidade:**
+- Respeite as leis de proteção de dados (LGPD)
+- Implemente políticas de privacidade adequadas
+- Obtenha consentimento para coleta de dados
+
+**💰 Disclaimer Financeiro:**
+- Os resultados de renda extra não são garantidos
+- Varia conforme dedicação e mercado
+- Faça sua própria pesquisa antes de investir
+
+**🌐 APIs de Terceiros:**
+- Google Gemini: Siga os termos do Google
+- OpenAI: Respeite os termos da OpenAI
+- Outras integrações: Verifique licenças específicas
+
+---
+
+<div align="center">
+
+**⚖️ Esta licença é reconhecida internacionalmente**
+
+[![OSI Approved](https://opensource.org/trademarks/opensource/OSI-Approved-License-100x137.png)](https://opensource.org/licenses/MIT)
+
+**📝 Última atualização: 27 de Setembro de 2025**
+
+</div>
