@@ -4,8 +4,9 @@ class AIChat {
         this.isOpen = false;
         this.isTyping = false;
         this.messageHistory = [];
-        this.apiKey = ''; // Será configurado pelo usuário
-        this.apiEndpoint = 'https://api.openai.com/v1/chat/completions';
+        this.apiKey = 'AIzaSyA_8nqsnGuNiQ8A1S0AlAR-nFgmUvge0Dw'; // Sua chave API configurada
+        this.apiType = 'google'; // google ou openai
+        this.apiEndpoint = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
         
         this.initializeElements();
         this.bindEvents();
@@ -114,55 +115,117 @@ class AIChat {
         }
         
         try {
-            const response = await fetch(this.apiEndpoint, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${this.apiKey}`
-                },
-                body: JSON.stringify({
-                    model: 'gpt-3.5-turbo',
-                    messages: [
-                        {
-                            role: 'system',
-                            content: `Você é a RendaIA, uma assistente virtual especializada em ajudar pessoas a gerar renda extra no Brasil. 
-                            
-                            Seu papel é:
-                            - Dar conselhos práticos sobre renda extra
-                            - Sugerir métodos adequados ao perfil da pessoa
-                            - Fornecer valores realistas do mercado brasileiro
-                            - Motivar sem fazer promessas irreais
-                            - Usar linguagem amigável e empática
-                            
-                            Métodos disponíveis:
-                            1. Venda de produtos caseiros (R$ 800-4.000/mês)
-                            2. Motorista de app (R$ 1.200-3.500/mês)
-                            3. Revenda online (R$ 600-5.000/mês)
-                            4. Serviços de reparo (R$ 1.000-3.000/mês)
-                            5. Aulas particulares (R$ 800-2.500/mês)
-                            6. Freelancer digital (R$ 500-4.000/mês)
-                            
-                            Sempre seja realista sobre tempo de retorno (2-4 meses para resultados significativos) e necessidade de dedicação.
-                            Mantenha respostas concisas (máximo 150 palavras) e práticas.`
-                        },
-                        ...this.messageHistory.slice(-5), // Últimas 5 mensagens para contexto
-                        { role: 'user', content: message }
-                    ],
-                    max_tokens: 300,
-                    temperature: 0.7
-                })
-            });
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+            if (this.apiType === 'google') {
+                return await this.getGoogleAIResponse(message);
+            } else {
+                return await this.getOpenAIResponse(message);
             }
-            
-            const data = await response.json();
-            return data.choices[0].message.content.trim();
         } catch (error) {
-            console.error('OpenAI API Error:', error);
+            console.error('Error getting AI response:', error);
             return this.getOfflineResponse(message);
         }
+    }
+    
+    async getGoogleAIResponse(message) {
+        const systemPrompt = `Você é a RendaIA, uma assistente virtual especializada em ajudar pessoas a gerar renda extra no Brasil. 
+
+Seu papel é:
+- Dar conselhos práticos sobre renda extra
+- Sugerir métodos adequados ao perfil da pessoa
+- Fornecer valores realistas do mercado brasileiro
+- Motivar sem fazer promessas irreais
+- Usar linguagem amigável e empática
+
+Métodos disponíveis:
+1. Venda de produtos caseiros (R$ 800-4.000/mês)
+2. Motorista de app (R$ 1.200-3.500/mês)
+3. Revenda online (R$ 600-5.000/mês)
+4. Serviços de reparo (R$ 1.000-3.000/mês)
+5. Aulas particulares (R$ 800-2.500/mês)
+6. Freelancer digital (R$ 500-4.000/mês)
+
+Sempre seja realista sobre tempo de retorno (2-4 meses para resultados significativos) e necessidade de dedicação.
+Mantenha respostas concisas (máximo 150 palavras) e práticas.`;
+
+        const response = await fetch(`${this.apiEndpoint}?key=${this.apiKey}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                contents: [{
+                    parts: [{
+                        text: systemPrompt + '\n\nPergunta do usuário: ' + message
+                    }]
+                }],
+                generationConfig: {
+                    temperature: 0.7,
+                    topK: 40,
+                    topP: 0.95,
+                    maxOutputTokens: 300
+                }
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+            return data.candidates[0].content.parts[0].text.trim();
+        } else {
+            throw new Error('Invalid response format from Google AI');
+        }
+    }
+    
+    async getOpenAIResponse(message) {
+        const response = await fetch(this.apiEndpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.apiKey}`
+            },
+            body: JSON.stringify({
+                model: 'gpt-3.5-turbo',
+                messages: [
+                    {
+                        role: 'system',
+                        content: `Você é a RendaIA, uma assistente virtual especializada em ajudar pessoas a gerar renda extra no Brasil. 
+                        
+                        Seu papel é:
+                        - Dar conselhos práticos sobre renda extra
+                        - Sugerir métodos adequados ao perfil da pessoa
+                        - Fornecer valores realistas do mercado brasileiro
+                        - Motivar sem fazer promessas irreais
+                        - Usar linguagem amigável e empática
+                        
+                        Métodos disponíveis:
+                        1. Venda de produtos caseiros (R$ 800-4.000/mês)
+                        2. Motorista de app (R$ 1.200-3.500/mês)
+                        3. Revenda online (R$ 600-5.000/mês)
+                        4. Serviços de reparo (R$ 1.000-3.000/mês)
+                        5. Aulas particulares (R$ 800-2.500/mês)
+                        6. Freelancer digital (R$ 500-4.000/mês)
+                        
+                        Sempre seja realista sobre tempo de retorno (2-4 meses para resultados significativos) e necessidade de dedicação.
+                        Mantenha respostas concisas (máximo 150 palavras) e práticas.`
+                    },
+                    ...this.messageHistory.slice(-5), // Últimas 5 mensagens para contexto
+                    { role: 'user', content: message }
+                ],
+                max_tokens: 300,
+                temperature: 0.7
+            })
+        });
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        return data.choices[0].message.content.trim();
     }
     
     getOfflineResponse(message) {
@@ -310,9 +373,23 @@ class AIChat {
     }
     
     // Method to configure API key (for production)
-    configureAPI(apiKey, endpoint = 'https://api.openai.com/v1/chat/completions') {
+    configureAPI(apiKey, endpoint = null) {
         this.apiKey = apiKey;
-        this.apiEndpoint = endpoint;
+        
+        // Auto-detect API type based on key format
+        if (apiKey.startsWith('AIzaSy')) {
+            this.apiType = 'google';
+            this.apiEndpoint = endpoint || 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+        } else if (apiKey.startsWith('sk-')) {
+            this.apiType = 'openai';
+            this.apiEndpoint = endpoint || 'https://api.openai.com/v1/chat/completions';
+        } else {
+            console.warn('Unknown API key format. Please specify the type manually.');
+            this.apiType = 'google'; // Default to Google
+            this.apiEndpoint = endpoint || 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+        }
+        
+        console.log(`AI API configured: ${this.apiType}`);
     }
     
     // Method to add custom responses
@@ -333,12 +410,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // API Key Configuration Helper (for demonstration)
 function configureAIChat() {
-    const apiKey = prompt('Digite sua chave da API OpenAI (opcional):');
+    if (window.aiChat.apiKey) {
+        const currentType = window.aiChat.apiType === 'google' ? 'Google Gemini' : 'OpenAI';
+        const change = confirm(`IA já configurada (${currentType})!\n\nQuer trocar por outra chave de API?`);
+        if (!change) return;
+    }
+    
+    const apiKey = prompt('Digite sua chave da API (Google AI ou OpenAI):');
     if (apiKey && apiKey.trim()) {
         window.aiChat.configureAPI(apiKey.trim());
-        alert('API configurada com sucesso! Agora o chat usará IA real.');
+        const apiType = apiKey.startsWith('AIzaSy') ? 'Google Gemini' : 
+                       apiKey.startsWith('sk-') ? 'OpenAI' : 'Desconhecido';
+        alert(`✅ API ${apiType} configurada com sucesso!\n\nAgora o chat usará IA real para respostas mais inteligentes.`);
     } else {
-        alert('Sem problema! O chat funcionará com respostas automáticas inteligentes.');
+        alert('❌ Nenhuma chave fornecida. O chat continuará com respostas automáticas.');
     }
 }
 
