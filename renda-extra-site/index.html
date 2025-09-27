@@ -371,6 +371,12 @@
                         <p>Email: contato@rendaextra.com</p>
                         <p>WhatsApp: (11) 99999-9999</p>
                     </div>
+                    <div class="footer-section">
+                        <h4>Assistente IA</h4>
+                        <p>Chat com IA especializada em renda extra</p>
+                        <button onclick="configureAIChat()" class="config-ai-btn">⚙️ Configurar API</button>
+                        <small>Funciona offline com respostas automáticas</small>
+                    </div>
                 </div>
                 <div class="footer-bottom">
                     <p>&copy; 2025 Protocolo Renda Extra. Todos os direitos reservados.</p>
@@ -379,6 +385,58 @@
         </footer>
     </div>
 
+    <!-- AI Chat Widget -->
+    <div id="ai-chat-widget">
+        <div class="chat-toggle" id="chatToggle">
+            <div class="chat-icon">🤖</div>
+            <div class="chat-notification" id="chatNotification">1</div>
+        </div>
+        
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-header">
+                <div class="chat-avatar">🤖</div>
+                <div class="chat-info">
+                    <span class="chat-name">Assistente RendaIA</span>
+                    <span class="chat-status">Online - Tire suas dúvidas</span>
+                </div>
+                <button class="chat-close" id="chatClose">×</button>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="message ai-message">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <p>Olá! 👋 Eu sou a RendaIA, sua assistente virtual especializada em renda extra!</p>
+                        <p>Posso te ajudar com:</p>
+                        <ul>
+                            <li>✅ Escolher o melhor método para seu perfil</li>
+                            <li>✅ Dicas práticas para começar</li>
+                            <li>✅ Calcular potencial de ganhos</li>
+                            <li>✅ Resolver dúvidas específicas</li>
+                        </ul>
+                        <p>Como posso te ajudar hoje?</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quick-questions">
+                <button class="quick-btn" data-question="Como começar com pouco dinheiro?">💰 Começar com pouco dinheiro</button>
+                <button class="quick-btn" data-question="Qual método é melhor para mim?">🎯 Qual método escolher?</button>
+                <button class="quick-btn" data-question="Quanto posso ganhar por mês?">📊 Potencial de ganhos</button>
+            </div>
+            
+            <div class="chat-input-container">
+                <input type="text" id="chatInput" placeholder="Digite sua pergunta..." maxlength="500">
+                <button id="chatSend">📤</button>
+            </div>
+            
+            <div class="chat-footer">
+                <small>Powered by AI • Respostas em tempo real</small>
+            </div>
+        </div>
+    </div>
+
     <script src="js/script.js"></script>
+    <script src="js/ai-chat.js"></script>
 </body>
 </html>
